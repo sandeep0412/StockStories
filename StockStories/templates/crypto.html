@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href= "{% static 'img/apple-icon.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Stock Stories</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no">
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <!-- CSS Files -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{% static 'css/now-ui-dashboard.css' %}" rel="stylesheet" />
+    <link href="https://getbootstrap.com/docs/4.0/examples/sign-in/signin.css" rel="stylesheet">
+    <style media="screen">
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      /* shape-rendering: crispEdges; */
+    }
+
+    .x.axis path {
+      display: none;
+    }
+
+    .line {
+      fill: none;
+      stroke: green;
+      stroke-width: 1.5px;
+    }
+
+    .red_line {
+      fill: none;
+      stroke: red;
+      stroke-width: 1.5px;
+    }
+
+    .green_text {
+      color: green;
+      font-size: 20px;
+    }
+
+    .red_text {
+      color: red;
+      font-size: 20px;
+    }
+
+    svg text {
+        -webkit-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+    }
+    svg text::selection {
+        background: none;
+    }
+
+    .title {
+      font-size: 25px;
+    }
+
+    .article_row {
+       /* top: 0px; */
+       margin: 10px auto;
+       border-width: 1px;
+       border-bottom-width:1px;
+       border-bottom-color:black;
+       border-bottom-style: solid;
+       width: 100%;
+    }
+
+    /* Container
+    /* =============================================== */
+    #demobox {
+        margin: auto;
+        min-height: auto;
+        min-width: auto;
+        max-width: auto;
+        /* padding-left: 30px; */
+        /* color: #333; */
+        color: #333; }
+
+
+    #csbox {
+        color: #000;
+        /* color: #fff; */
+        background: #fff;
+        width: auto;
+        height: auto;
+        font-size: small;
+        text-align: center; }
+    #cryptomap1{
+    background-color:#f9f9f9;
+    margin-left:20px;
+    margin-top:60px;
+    width:1100px;
+    height:600px;
+  }
+
+  .dot1 {
+  height: 25px;
+  width: 25px;
+  background-color: #f25f52;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left:600px;
+}
+
+.dot2 {
+height: 25px;
+width: 25px;
+background-color: #6bd385;
+border-radius: 50%;
+display: inline-block;
+margin-left:100px;
+}
+
+.dot1text{
+  position:relative;
+  bottom:5px;
+  font-size:1.2em;
+  font-family:'Times New Roman';
+  font-weight:bold;
+}
+
+    /* Candlestick Chart
+    /* =============================================== */
+    #chart1 .grid { stroke-opacity: .3; }
+    #chart1 .axis line,
+    #chart1 .axis.xaxis path { fill: none; stroke: black; shape-rendering: crispEdges; }
+    #chart1 .tick text { font: 10px sans-serif; fill: black; stroke-opacity: 1; }
+    #chart1 .axis.yaxis path { fill: none; stroke: black; }
+
+    #chart1 .bands rect { fill: darkgrey; fill-opacity: 0; stroke-opacity: 0; pointer-events: all; shape-rendering: crispEdges; }
+    #chart1 .bands .hoved { fill-opacity: .6; }
+    #chart1 .sticks rect { pointer-events: none; shape-rendering: crispEdges; }
+    #chart1 .sticks .rise, #chart1 .candles .rise { fill: green; }
+    #chart1 .sticks .fall, #chart1 .candles .fall { fill: red; }
+    #chart1 .sticks .hoved { stroke: black; }
+    #chart1 .candles .hoved { stroke: black; }
+    #chart1 .candles rect { pointer-events: none; shape-rendering: crispEdges; }
+
+    #chart1 .bbmn { fill: none; stroke: cyan; stroke-width: 1.5px; pointer-events: none; }
+    #chart1 .bbup { fill: none; stroke: green; stroke-width: 1.5px; pointer-events: none; }
+    #chart1 .bbdn { fill: none; stroke: crimson; stroke-width: 1.5px; pointer-events: none; }
+
+    #chart1 .volumebar { fill: darkgrey; }
+    #chart1 .volumebar rect { pointer-events: none; }
+    #chart1 .volumebar .hoved { fill: black; }
+    #chart1 .sigmabar { fill: darkgrey; }
+    #chart1 .sigmabar rect { pointer-events: none; }
+    #chart1 .sigmabar .hoved { fill: black; }
+
+    #option    { width: auto; height: 25px; float: left; padding-top: 5px; }
+    #option input { cursor: pointer; border-radius: 5px; color: #fff; background: #696d75; border: none; }
+    #option input {
+                    -webkit-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.75);
+                    -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.75);
+                    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.75);
+                  }
+    #option .active { cursor: auto; background: #94979d; }
+    #option .active {
+                    -webkit-box-shadow: none;
+                    -moz-box-shadow: none;
+                    box-shadow: none;
+                  }
+    #infobar   { width: 570px; height: 25px; float: left; padding-top: 5px; text-align: left; font-family: sans-serif; }
+    .infohead  { width: 140px; height: 25px; margin: 0px 2px; float: left; }
+    .infobox   { width: 70px; height: 30px; margin: 0px 2px; float: left; }
+
+    #volchart .volbar .volfill { fill: crimson; }
+    #volchart .sigbar .sigfill { fill: crimson; }
+    #volchart input { cursor: pointer; }
+    #lineinfobar   { width: 1200px; height: 30px; margin: 10px auto; padding-top: 5px; text-align: left; font-family: sans-serif; }
+    .lineinfohead  { width: 200px; height: 30px; margin: 0px 2px; float: left; font-weight: bold;}
+    .lineinfobox   { width: 180px; height: 30px; margin: 0px 2px; float: left; }  
+    </style>
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="red">
+      <div class="logo">
+        <a href="http://localhost:8000/" class="simple-text logo-mini">
+            SS
+        </a>
+        <a href="http://localhost:8000/" class="simple-text logo-normal">
+            Stock Stories
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+        <li>    
+          <a href="http://localhost:8000/stockstories">
+          <i class="now-ui-icons design_app"></i>
+          <p>Dashboard</p>
+          </a>
+        </li>
+        <li>
+            <a href="http://localhost:8000/explore/">
+                <i class="now-ui-icons location_compass-05"></i>
+                <p>Explore</p>
+            </a>
+        </li>
+        <li class="active">           
+            <a href="http://localhost:8000/crypto/">
+                <i class="now-ui-icons business_money-coins"></i>
+                <p>Crypto currency</p>
+            </a>
+        </li>
+        <li>
+            <a href="http://localhost:8000/user">
+                <i class="now-ui-icons users_single-02"></i>
+                <p>User Profile</p>
+            </a>
+        </li>
+        <li>
+          <a href="http://localhost:8000/global">
+          <i class="now-ui-icons business_globe"></i>
+          <p> Global Market</p>
+          </a>
+        </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-wrapper">
+          <div class="navbar-toggle">
+            <button type="button" class="navbar-toggler">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+            </button>
+          </div>
+          <a class="navbar-brand" href="#">Crypto</a>
+        </div>
+          <span class="navbar-toggler-bar navbar-kebab"></span>
+          <span class="navbar-toggler-bar navbar-kebab"></span>
+          <span class="navbar-toggler-bar navbar-kebab"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <div class="input-group no-border">
+                <input id="org" name="org" type="text" value="" class="form-control" placeholder="Search...">
+                <script type="text/javascript">function search(){
+                window.location = '/crypto/?org='+document.getElementById('org').value+'&chart_type=line'}</script>
+                <button class="btn btn-link" onclick="search()"> Search </button>
+            </div>
+          <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="now-ui-icons media-2_sound-wave"></i>
+            <p>
+            <span class="d-lg-none d-md-block">Graph Modes</span>
+            </p>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="?chart_type=line&org={{ org_stock }}" > Line chart</a>
+                  <a class="dropdown-item" href="?chart_type=ohlc&org={{ org_stock }}" > OHLC </a>
+                  <a class="dropdown-item" href="?chart_type=global" > Global </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>
+                  <span class="d-lg-none d-md-block">User Account</span>
+              </p>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="user">Profile</a>
+                  <a class="dropdown-item" href="accounts/logout">Signout</a>
+              </div>
+          </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+    <div class="panel-header panel-header-sm">
+    </div>    
+    <!-- SVG container -->
+      <!--   Core JS Files   -->
+      <script src="{% static 'js/core/jquery.min.js' %}"></script>
+      <script src="{% static 'js/core/popper.min.js' %}"></script>
+      <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+      <script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+
+      <!-- Chart JS -->
+      <script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
+      <!--  Notifications Plugin    -->
+      <script src="{% static 'js/plugins/bootstrap-notify.js' %}"></script>
+      <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+      <script src="{% static 'js/now-ui-dashboard.js' %}"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+      <script src="http://d3js.org/d3.v3.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+      <script src="http://datamaps.github.io/scripts/0.4.4/datamaps.world.min.js"></script>
+
+       {% if chart_type == 'global' %}
+
+       <div id ="cryptomap1">   
+        <h4> Bitcoin Performance: Global </h4>
+
+    </div>
+
+    <span class="dot1"></span> <span class="dot1text">Decrease in Value</span>
+    <span class="dot2"></span> <span class="dot1text">Increase in Value</span>
+
+    <script>
+
+
+
+    var cryptoMap1 = new Datamap(
+
+          {
+              scope: 'world',
+              projection: 'equirectangular',
+              element: document.getElementById('cryptomap1'),
+              // projection: 'mercator',
+
+              geographyConfig: {
+                                  borderWidth: 0.2,
+                                  borderColor: 'white',
+                              /*  highlightBorderColor: 'black',
+                                  highlightBorderWidth: 0.5,
+                                  highlightFillColor: '#FFEC38',
+
+                                  highlightOnHover: true,
+                                  popupOnHover: true, //disable the popup while hovering
+      */
+                                  popupTemplate: function(geography, csvdata1) {
+                                      if ( !csvdata1 ) return;  // makes sure that the tooltip is shown only if there is data
+                                      return '<div class="hoverinfo">'  + 'Country: <strong>'+csvdata1.country +'</strong>'+ '<br>Currency: <strong>'+csvdata1.Currency + '</strong>'+ '<br> Value:  <strong>' +  csvdata1.Value + '</strong>';},
+                                  },
+              fills: {
+                'increase':'#6bd385',
+                'decrease':'#f25f52',
+                defaultFill: '#d6d6d6'
+              },
+              data: {}
+    });
+
+
+
+    d3.csv("{% static 'crypto_global.csv' %}", function(error, csvdata1) {
+
+    for (var i=0;i<csvdata1.length;i++)
+
+          {
+            csvdata1[i].fillKey = {};
+
+            if (csvdata1[i].Increase == "Yes")
+            {
+              csvdata1[i].fillKey = 'increase';
+            }
+
+            if (csvdata1[i].Increase == "No")
+            {
+              csvdata1[i].fillKey = 'decrease';
+            }
+
+
+            csvdata1[ csvdata1[i].country_code] = csvdata1[i] ;
+            //console.log(csvdata1[i]);
+            delete  csvdata1[i].country_code;
+
+            delete  csvdata1[i] ;
+              }
+
+
+    cryptoMap1.updateChoropleth(csvdata1);
+    }
+    );
+
+
+
+    </script>
+
+      {% elif chart_type == 'line' %}
+      <div style="text-align:center">
+        <h3><span>{{ org_stock }}</span></h3>
+        <h5>$<span id="main_price">Price</span>
+        <span id="change_ratio">Changes</span></h5>
+        <!-- <h4 id="change_ratio">Changes</h4> -->
+      </div>
+      <div style="text-align:center" class="svg_container">
+          </div>
+          <div class="options" >
+        <button type="button" id="M_1" class="btn btn-primary">1D</button>
+        <button type="button" id="M_2" class="btn btn-primary">3M</button>
+        <button type="button" id="M_3" class="btn btn-primary">1Y</button>
+        <button type="button" id="M_4" class="btn btn-primary">ALL</button>
+    </div>
+    <div id="lineinfobar">
+        <div id="infodate" class="lineinfohead">STATS</div>
+        <div id="infoopen" class="lineinfobox"></div>
+        <div id="infohigh" class="lineinfobox"></div>
+        <div id="infolow" class="lineinfobox"></div>
+        <div id="infoclose" class="lineinfobox"></div>
+        <div id="infovolume" class="lineinfobox"></div>
+    </div>
+      <script type="text/javascript">
+      // alert("Connection!")
+      var margin = {
+        top: 20,
+        right: 200,
+        bottom: 30,
+        left: 50
+      },
+      width = 1200 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+      // console.log(parseTime(testTime));
+      var stringTime = d3.time.format("%Y-%m-%d");
+      // console.log(stringTime(parseTime(testTime)));
+
+      var x = d3.time.scale()
+      .range([0, width]);
+
+      var y = d3.scale.linear()
+      .range([height, 0]);
+
+      var color = d3.scale.category10();
+      var colors = ["green", "red"];
+
+      var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+      var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+
+      var line = d3.svg.line()
+      .interpolate("basis")
+      .x(function(d) {
+        return x(d[col1]);
+      })
+      .y(function(d) {
+        return y(d.closed);
+      });
+
+      console.log(line);
+      var col1 = "timestamp";
+
+
+      function updateData(url_path, str_format, range) {
+
+        var data = {{ stock_values|safe }}
+        console.log(data)
+        var parseDate = d3.time.format(str_format).parse;
+        // d3.csv("intraday_1min_GOOGL.csv", function(error, data) {
+
+        $.get(url_path, function(response, status)
+        {
+          //timestamp,open, high,low, close,volume
+          if(str_format=="%Y-%m-%d %H:%M:%S"){
+            data = []
+            console.log(response)
+            Object.keys(response['Time Series (Digital Currency Intraday)']).map(function(timestamp){
+            data.push({
+                timestamp: timestamp,
+                open: response['Time Series (Digital Currency Intraday)'][timestamp]['1a. price (USD)'],
+                high: response['Time Series (Digital Currency Intraday)'][timestamp]['1b. price (USD)'],
+                low: response['Time Series (Digital Currency Intraday)'][timestamp]['1b. price (USD)'],
+                close: response['Time Series (Digital Currency Intraday)'][timestamp]['1b. price (USD)'],
+                volume: response['Time Series (Digital Currency Intraday)'][timestamp]['2. volume'],
+
+              })
+            })
+          }
+          // if (error) throw error;
+          // format the data
+          color.domain(d3.keys(data[0]).filter(function(key) {
+          // return key !== "timestamp" && key !== "volume" && key !== "open";
+          return key === "close";
+          }));
+
+          if (range != -1) data = data.slice(0, range);
+          // console.log(color.domain());
+          data.map(function(d) {
+          d[col1] = parseDate(d[col1]);
+          });
+
+        // console.log(data);
+          var stocks = color.domain().map(function(name) {
+          return {
+            name: name,
+            values: data.map(function(d) {
+              return {
+                [col1]: d[col1],
+                closed: +d[name]
+              };
+            })
+          };
+          });
+
+          x.domain(d3.extent(data, function(d) {
+          return d[col1];
+          }));
+
+          y.domain([
+          d3.min(stocks, function(c) {
+            return d3.min(c.values, function(v) {
+              return v.closed;
+            });
+          }),
+          d3.max(stocks, function(c) {
+            return d3.max(c.values, function(v) {
+              return v.closed;
+            });
+          })
+        ]);
+
+        // console.log(stocks);
+          //Basic Caluclations
+          var currClose = stocks[0].values[0].closed,
+              lastClose = stocks[0].values[stocks[0].values.length-1].closed,
+              change = (currClose - lastClose).toFixed(2),
+              change_ratio = (change / lastClose * 100).toFixed(2);
+          var lineColor = change < 0? "red_line": "line",
+              textColor = change > 0? "green_text": "red_text";
+
+          // Other basic info
+          var currHigh = Number(data[0].high).toFixed(2),
+              currLow = Number(data[0].low).toFixed(2),
+              currOpen = Number(data[0].open).toFixed(2),
+              currVolume = Number(data[0].volume);
+              currClose = (currClose).toFixed(2);
+
+              d3.select('#infohigh').text("HIGH " + currHigh);
+              d3.select('#infolow').text("LOW " + currLow);
+              d3.select('#infoopen').text("OPEN " + currOpen);
+              d3.select('#infovolume').text("VOLUME " + (currVolume/1000000).toFixed(2) + " M");
+              d3.select('#infoclose').text("CLOSE " + currClose);
+
+          // // Select the section we want to apply our changes to
+          // var svg = d3.select(".svg_container");
+
+          // svg = d3.select(".svg_container").transition();
+          //
+          // // Make the changes
+          // svg.select(".x.axis") // change the x axis
+          //     .duration(750)
+          //     .call(xAxis);
+          // svg.select(".y.axis") // change the y axis
+          //     .duration(750)
+          //     .call(yAxis);
+
+          d3.select("svg").remove();
+          var svg = d3.select(".svg_container")
+          .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+          // console.log(lastClose+ " " +currClose);
+          svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+          svg.append("g")
+          .attr("class", "y axis")
+          .call(yAxis)
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("Price ($)");
+          // svg.select(".stock path")   // change the line
+          //     .duration(750)
+          //     .attr("d", function(d) {
+          //       return line(d.values);
+          //     });
+          var stock = svg.selectAll(".stock")
+          .remove()
+          .data(stocks)
+          .enter()
+          .append("g")
+          .attr("class", "stock");
+
+          stock.append("path")
+          .attr("class", lineColor)
+          .attr("d", function(d) {
+            return line(d.values);
+          });
+
+          // listener - mouse movements
+          var mouseG = svg.append("g")
+          .attr("class", "mouse-over-effects");
+
+          mouseG.append("path") // this is the black vertical line to follow mouse
+          .attr("class", "mouse-line")
+          .style("stroke", "black")
+          .style("stroke-width", "1px")
+          .style("opacity", "0");
+
+          var lines = document.getElementsByClassName('line');
+
+          var mousePerLine = mouseG.selectAll('.mouse-per-line')
+          .data(stocks)
+          .enter()
+          .append("g")
+          .attr("class", "mouse-per-line");
+
+          mousePerLine.append("circle")
+          .attr("r", 5)
+          .attr("class", lineColor);
+
+          mousePerLine.append("text")
+          .attr("transform", "translate(10,3)");
+
+          mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
+          .attr('width', width) // can't catch mouse events on a g element
+          .attr('height', height)
+          .attr('fill', 'none')
+          .attr('pointer-events', 'all')
+          .on('mouseout', function() { // on mouse out hide line, circles and text
+            d3.select(".mouse-line")
+              .style("opacity", "0");
+            d3.selectAll(".mouse-per-line circle")
+              .style("opacity", "0");
+            d3.selectAll(".mouse-per-line text")
+              .style("opacity", "0");
+            d3.select('#main_price').text(currClose);
+            d3.select('#change_ratio').text(change + "[" + change_ratio + "%]")
+            .attr("class", textColor);
+          })
+          .on('mouseover', function() { // on mouse in show line, circles and text
+            d3.select(".mouse-line")
+              .style("opacity", "1");
+            d3.selectAll(".mouse-per-line circle")
+              .style("opacity", "1");
+            d3.selectAll(".mouse-per-line text")
+              .style("opacity", "1");
+          })
+          .on('mousemove', function() { // mouse moving over canvas
+            var mouse = d3.mouse(this);
+            d3.select(".mouse-line")
+              .attr("d", function() {
+                var d = "M" + mouse[0] + "," + height;
+                d += " " + mouse[0] + "," + 0;
+                return d;
+              });
+
+            // console.log(lines);
+            d3.selectAll(".mouse-per-line")
+              .attr("transform", function(d, i) {
+                // console.log(width/mouse[0])
+                var xDate = x.invert(mouse[0]),
+                    bisect = d3.bisector(function(d) { return d[col1]; }).right;
+                    idx = bisect(d.values.reverse(), xDate);
+
+                var d0 = d.values[idx-1],
+                    d1 = d.values[idx];
+                var dd;
+                if (d0 == null || d1 == null) {
+                  dd = (d0 == null)? d1:d0;
+                }
+                else {
+                  dd = xDate - d0.closed > d1.closed - xDate ? d1 : d0;
+                }
+
+                // get current y values
+                var timeString = stringTime(xDate);
+                var pointY = dd.closed,
+                    pointChange = (pointY - lastClose).toFixed(2),
+                    pointChange_ratio = (pointChange / lastClose * 100).toFixed(2);
+                var pointColor = pointChange > 0? "green_text": "red_text";
+                d3.select(this).select('text')
+                  // .style("text-anchor", "end")
+                  .text(timeString);
+                d3.select('#main_price').text(pointY);
+                d3.select('#change_ratio').text(pointChange + "[" + pointChange_ratio + "%]")
+                .attr("class", pointColor);
+                // console.log("currY: "+currY);
+
+                return "translate(" + mouse[0] + "," + y(dd.closed) +")";
+              });
+          })
+          
+          .on("click", function(){
+            var mouse = d3.mouse(this),
+                xDate = x.invert(mouse[0]);
+            d3.select(".mouse-line")
+              .attr("d", function() {
+                var d = "M" + mouse[0] + "," + height;
+                d += " " + mouse[0] + "," + 0;
+                return d;
+              });
+
+            var timeString = stringTime(xDate);
+            console.log(timeString);
+            if (timeString == null) {
+              var stock_org = document.getElementById('org').value;
+              window.location = '/crypto/?chart_type=line&org='+stock_org
+
+            } else {
+                window.location = '/crypto/?org='+'{{ org_stock }}'+'&chart_type=line&news_from='+timeString+'&news_to='+timeString
+            }
+            // console.log(timeString);
+            d3.selectAll(".article_row .publish_info")
+            .text(timeString);
+          });
+//brackets end
+        });
+      }
+
+      var paths = [
+        'http://localhost:8000/crypto/',
+        'https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_INTRADAY&symbol={{ org_stock }}&market=USD&apikey=1NM560XCN7P79LTB'
+        
+      ]
+
+      updateData(paths[0], "%Y-%m-%d", -1);
+https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_INTRADAY&symbol=BTC&market=EUR&apikey=demo
+      d3.select('#M_1').on("click", function(){
+        updateData(paths[1], "%Y-%m-%d %H:%M:%S", -1);
+      });
+      d3.select('#M_2').on("click", function(){
+        updateData(paths[0], "%Y-%m-%d", 60);
+        console.log("run");
+      });
+      d3.select('#M_3').on("click", function(){
+        updateData(paths[0], "%Y-%m-%d", 260);
+      });
+      d3.select('#M_4').on("click", function(){
+        updateData(paths[0], "%Y-%m-%d", -1);
+      });
+
+      </script>
+    {% elif chart_type == 'ohlc' %}
+    <div id="csbox" class="svg_container">
+      <h3><span>{{ org_stock }}</span></h3>
+      <div id="option">
+        <input id="oneM" name="1M" type="button" value="1M"/>
+        <input id="threeM" name="3M" type="button" value="3M"/>
+        <input id="sixM" name="6M" type="button" value="6M" />
+        <input id="oneY" name="1Y" type="button" value="1Y" />
+        <input id="twoY" name="2Y" type="button" value="2Y" />
+        <input id="fourY" name="4Y" type="button" value="4Y" />
+      </div>
+      <div id="infobar">
+        <div id="infodate" class="infohead"></div>
+        <div id="infoopen" class="infobox"></div>
+        <div id="infohigh" class="infobox"></div>
+        <div id="infolow" class="infobox"></div>
+        <div id="infoclose" class="infobox"></div>
+        <div id="infovolume" class="infobox"></div>
+      </div>
+      <div id="chart1"></div>
+      </div> <!-- csbox -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-queue/3.0.7/d3-queue.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+      <script type="text/javascript" >
+          // csbars
+          function barchart() {
+
+            var margin = {top: 300, right: 30, bottom: 10, left: 5 },
+                width = 765, height = 60, mname = "mbar1";
+
+            var MValue = "volume";
+
+            function barrender(selection) {
+              selection.each(function(data) {
+
+                var x = d3.scale.ordinal()
+                    .rangeBands([0, width]);
+
+                var y = d3.scale.linear()
+                    .rangeRound([height, 0]);
+
+                var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .tickFormat(d3.time.format(TFormat[TIntervals[TPeriod]]));
+
+                var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .ticks(Math.floor(height/50));
+
+                var svg = d3.select(this).select("svg")
+                   .append("g")
+                      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                x.domain(data.map(function(d) { return d.timestamp; }));
+                y.domain([0, d3.max(data, function(d) { return d[MValue]; })]).nice();
+
+                var xtickdelta   = Math.ceil(60/(width/data.length))
+                xAxis.tickValues(x.domain().filter(function(d, i) { return !((i+Math.floor(xtickdelta/2)) % xtickdelta); }));
+
+                svg.append("g")
+                    .attr("class", "axis yaxis")
+                    .attr("transform", "translate(" + width + ",0)")
+                    .call(yAxis.orient("right").tickFormat("").tickSize(0));
+
+          //      svg.append("g")
+          //          .attr("class", "axis yaxis")
+          //          .attr("transform", "translate(0,0)")
+          //          .call(yAxis.orient("left"));
+
+                var barwidth    = x.rangeBand();
+                var fillwidth   = (Math.floor(barwidth*0.9)/2)*2+1;
+                var bardelta    = Math.round((barwidth-fillwidth)/2);
+
+                var mbar = svg.selectAll("."+mname+"bar")
+                    .data([data])
+                  .enter().append("g")
+                    .attr("class", mname+"bar");
+
+                mbar.selectAll("rect")
+                    .data(function(d) { return d; })
+                  .enter().append("rect")
+                    .attr("class", mname+"fill")
+                    .attr("x", function(d) { return x(d.timestamp) + bardelta; })
+                    .attr("y", function(d) { return y(d[MValue]); })
+                    .attr("class", function(d, i) { return mname+i; })
+                    .attr("height", function(d) { return y(0) - y(d[MValue]); })
+                    .attr("width", fillwidth);
+              });
+            } // barrender
+            barrender.mname = function(value) {
+                      if (!arguments.length) return mname;
+                      mname = value;
+                      return barrender;
+                  };
+
+            barrender.margin = function(value) {
+                      if (!arguments.length) return margin.top;
+                      margin.top = value;
+                      return barrender;
+                  };
+
+            barrender.MValue = function(value) {
+                      if (!arguments.length) return MValue;
+                      MValue = value;
+                      return barrender;
+                  };
+
+          return barrender;
+          } // barchart
+
+          //cschart
+          function cschart() {
+
+              var margin = {top: 0, right: 30, bottom: 40, left: 5},
+                  width = 765, height = 300, Bheight = 380;
+
+              function csrender(selection) {
+                selection.each(function() {
+
+                  var interval = TIntervals[TPeriod];
+
+                  var minimal  = d3.min(genData, function(d) { return d.low; });
+                  var maximal  = d3.max(genData, function(d) { return d.high; });
+
+                  var extRight = width + margin.right
+                  var x = d3.scale.ordinal()
+                      .rangeBands([0, width]);
+
+                  var y = d3.scale.linear()
+                      .rangeRound([height, 0]);
+
+                  var xAxis = d3.svg.axis()
+                      .scale(x)
+                      .tickFormat(d3.time.format(TFormat[interval]));
+
+                  var yAxis = d3.svg.axis()
+                      .scale(y)
+                      .ticks(Math.floor(height/50));
+
+                  x.domain(genData.map(function(d) { return d.timestamp; }));
+                  y.domain([minimal, maximal]).nice();
+
+                  var xtickdelta   = Math.ceil(60/(width/genData.length))
+                  xAxis.tickValues(x.domain().filter(function(d, i) { return !((i+Math.floor(xtickdelta/2)) % xtickdelta); }));
+
+                  var barwidth    = x.rangeBand();
+                  var candlewidth = Math.floor(d3.min([barwidth*0.8, 13])/2)*2+1;
+                  var delta       = Math.round((barwidth-candlewidth)/2);
+
+                  d3.select(this).select("svg").remove();
+                  var svg = d3.select(this).append("svg")
+                      .attr("width", width + margin.left + margin.right)
+                      .attr("height", Bheight + margin.top + margin.bottom)
+                    .append("g")
+                      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                  svg.append("g")
+                      .attr("class", "axis xaxis")
+                      .attr("transform", "translate(0," + height + ")")
+                      .call(xAxis.orient("bottom").outerTickSize(0));
+
+                  svg.append("g")
+                      .attr("class", "axis yaxis")
+                      .attr("transform", "translate(" + width + ",0)")
+                      .call(yAxis.orient("right").tickSize(0));
+
+                  svg.append("g")
+                      .attr("class", "axis grid")
+                      .attr("transform", "translate(" + width + ",0)")
+                      .call(yAxis.orient("left").tickFormat("").tickSize(width).outerTickSize(0));
+
+                  var bands = svg.selectAll(".bands")
+                      .data([genData])
+                    .enter().append("g")
+                      .attr("class", "bands");
+
+                  bands.selectAll("rect")
+                      .data(function(d) { return d; })
+                    .enter().append("rect")
+                      .attr("x", function(d) { return x(d.timestamp) + Math.floor(barwidth/2); })
+                      .attr("y", 0)
+                      .attr("height", Bheight)
+                      .attr("width", 1)
+                      .attr("class", function(d, i) { return "band"+i; })
+                      .style("stroke-width", Math.floor(barwidth));
+
+                  var stick = svg.selectAll(".sticks")
+                      .data([genData])
+                    .enter().append("g")
+                      .attr("class", "sticks");
+
+                  stick.selectAll("rect")
+                      .data(function(d) { return d; })
+                    .enter().append("rect")
+                      .attr("x", function(d) { return x(d.timestamp) + Math.floor(barwidth/2); })
+                      .attr("y", function(d) { return y(d.high); })
+                      .attr("class", function(d, i) { return "stick"+i; })
+                      .attr("height", function(d) { return y(d.low) - y(d.high); })
+                      .attr("width", 1)
+                      .classed("rise", function(d) { return (d.close>d.open); })
+                      .classed("fall", function(d) { return (d.open>d.close); });
+
+                  var candle = svg.selectAll(".candles")
+                      .data([genData])
+                    .enter().append("g")
+                      .attr("class", "candles");
+
+                  candle.selectAll("rect")
+                      .data(function(d) { return d; })
+                    .enter().append("rect")
+                      .attr("x", function(d) { return x(d.timestamp) + delta; })
+                      .attr("y", function(d) { return y(d3.max([d.open, d.close])); })
+                      .attr("class", function(d, i) { return "candle"+i; })
+                      .attr("height", function(d) { return y(d3.min([d.open, d.close])) - y(d3.max([d.open, d.close])); })
+                      .attr("width", candlewidth)
+                      .classed("rise", function(d) { return (d.close>d.open); })
+                      .classed("fall", function(d) { return (d.open>d.close); });
+
+                });
+              } // csrender
+
+              csrender.Bheight = function(value) {
+                        if (!arguments.length) return Bheight;
+                        Bheight = value;
+                        return csrender;
+                    };
+
+          return csrender;
+          } // cschart
+
+          //csdataprep
+          function genType(d) {
+            d.timestamp  = parseDate(d.timestamp);
+            d.low        = +d.low;
+            d.high       = +d.high;
+            d.open       = +d.open;
+            d.close      = +d.close;
+            d.volume   = +d.volume;
+            // d.VOLATILITY = +d.VOLATILITY;
+            return d;
+          }
+
+          function timeCompare(date, interval) {
+            if (interval == "week")       { var durfn = d3.time.monday(date); }
+            else if (interval == "month") { var durfn = d3.time.month(date); }
+            else { var durfn = d3.time.day(date); }
+            return durfn;
+          }
+
+          function dataCompress(data, interval) {
+            var compressedData  = d3.nest()
+                           .key(function(d) { return timeCompare(d.timestamp, interval); })
+                           .rollup(function(v) { return {
+                                   timestamp:   timeCompare(d3.values(v).pop().timestamp, interval),
+                                   open:        d3.values(v).shift().open,
+                                   low:         d3.min(v, function(d) { return d.low;  }),
+                                   high:        d3.max(v, function(d) { return d.high; }),
+                                   close:       d3.values(v).pop().close,
+                                   volume:    d3.mean(v, function(d) { return d.volume; }),
+                                   // VOLATILITY:  d3.mean(v, function(d) { return d.VOLATILITY; })
+                                  }; })
+                           .entries(data).map(function(d) { return d.values; });
+
+            return compressedData;
+          }
+
+          //csheader
+          function csheader() {
+
+          function cshrender(selection) {
+            selection.each(function(data) {
+
+              var interval   = TIntervals[TPeriod];
+              var format     = (interval=="month")?d3.time.format("%b %Y"):d3.time.format("%b %d %Y");
+              var dateprefix = (interval=="month")?"Month of ":(interval=="week")?"Week of ":"";
+              d3.select("#infodate").text(dateprefix + format(data.timestamp));
+              d3.select("#infoopen").text("O " + data.open);
+              d3.select("#infohigh").text("H " + data.high);
+              d3.select("#infolow").text("L " + data.low);
+              d3.select("#infoclose").text("C " + data.close);
+              d3.select("#infovolume").text("V " + (data.volume/1000000).toFixed(3) + "M");
+
+            });
+          } // cshrender
+
+          return cshrender;
+          } // csheader
+
+          // csmain
+          var parseDate    = d3.time.format("%Y-%m-%d").parse;
+          var TPeriod      = "3M";
+          var TDays        = {"1M":21, "3M":63, "6M":126, "1Y":252, "2Y":504, "4Y":1008 };
+          var TIntervals   = {"1M":"day", "3M":"day", "6M":"day", "1Y":"week", "2Y":"week", "4Y":"month" };
+          var TFormat      = {"day":"%d %b '%y", "week":"%d %b '%y", "month":"%b '%y" };
+          var genRaw, genData;
+
+          // (function() {
+          //     d3.csv("daily_GOOGL.csv", genType, function(data) {
+          //       genRaw         = data;
+          //       mainjs();
+          //     });
+          // }());
+
+          function go(file_path) {
+              
+                genRaw = {{ stock_values|safe }}
+                genRaw = genRaw.map(function(item){item.timestamp = parseDate(item.timestamp); return item;})
+                mainjs();
+              
+          };
+
+          function toSlice(data) { return data.slice(0, TDays[TPeriod]); }
+          // function toSlice(data) { return data.slice(-TDays[TPeriod]); }
+
+          function mainjs() {
+            var toPress    = function() { genData = (TIntervals[TPeriod]!="day")?dataCompress(toSlice(genRaw), TIntervals[TPeriod]):toSlice(genRaw); };
+            toPress(); displayAll();
+            d3.select("#oneM").on("click",   function(){ TPeriod  = "1M"; toPress(); displayAll(); });
+            d3.select("#threeM").on("click", function(){ TPeriod  = "3M"; toPress(); displayAll(); });
+            d3.select("#sixM").on("click",   function(){ TPeriod  = "6M"; toPress(); displayAll(); });
+            d3.select("#oneY").on("click",   function(){ TPeriod  = "1Y"; toPress(); displayAll(); });
+            d3.select("#twoY").on("click",   function(){ TPeriod  = "2Y"; toPress(); displayAll(); });
+            d3.select("#fourY").on("click",  function(){ TPeriod  = "4Y"; toPress(); displayAll(); });
+          }
+
+          function displayAll() {
+              changeClass();
+              displayCS();
+              displayGen(genData.length-1);
+          }
+
+          function changeClass() {
+              if (TPeriod =="1M") {
+                  d3.select("#oneM").classed("active", true);
+                  d3.select("#threeM").classed("active", false);
+                  d3.select("#sixM").classed("active", false);
+                  d3.select("#oneY").classed("active", false);
+                  d3.select("#twoY").classed("active", false);
+                  d3.select("#fourY").classed("active", false);
+              } else if (TPeriod =="6M") {
+                  d3.select("#oneM").classed("active", false);
+                  d3.select("#threeM").classed("active", false);
+                  d3.select("#sixM").classed("active", true);
+                  d3.select("#oneY").classed("active", false);
+                  d3.select("#twoY").classed("active", false);
+                  d3.select("#fourY").classed("active", false);
+              } else if (TPeriod =="1Y") {
+                  d3.select("#oneM").classed("active", false);
+                  d3.select("#threeM").classed("active", false);
+                  d3.select("#sixM").classed("active", false);
+                  d3.select("#oneY").classed("active", true);
+                  d3.select("#twoY").classed("active", false);
+                  d3.select("#fourY").classed("active", false);
+              } else if (TPeriod =="2Y") {
+                  d3.select("#oneM").classed("active", false);
+                  d3.select("#threeM").classed("active", false);
+                  d3.select("#sixM").classed("active", false);
+                  d3.select("#oneY").classed("active", false);
+                  d3.select("#twoY").classed("active", true);
+                  d3.select("#fourY").classed("active", false);
+              } else if (TPeriod =="4Y") {
+                  d3.select("#oneM").classed("active", false);
+                  d3.select("#threeM").classed("active", false);
+                  d3.select("#sixM").classed("active", false);
+                  d3.select("#oneY").classed("active", false);
+                  d3.select("#twoY").classed("active", false);
+                  d3.select("#fourY").classed("active", true);
+              } else {
+                  d3.select("#oneM").classed("active", false);
+                  d3.select("#threeM").classed("active", true);
+                  d3.select("#sixM").classed("active", false);
+                  d3.select("#oneY").classed("active", false);
+                  d3.select("#twoY").classed("active", false);
+                  d3.select("#fourY").classed("active", false);
+              }
+          }
+
+          function displayCS() {
+              var chart       = cschart().Bheight(380);
+              d3.select("#chart1").call(chart);
+              var chart       = barchart().mname("volume").margin(320).MValue("volume");
+              d3.select("#chart1").datum(genData).call(chart);
+              // var chart       = barchart().mname("sigma").margin(380).MValue("VOLATILITY");
+              // d3.select("#chart1").datum(genData).call(chart);
+              hoverAll();
+          }
+
+          function hoverAll() {
+              d3.select("#chart1").select(".bands").selectAll("rect")
+                    .on("mouseover", function(d, i) {
+                        d3.select(this).classed("hoved", true);
+                        d3.select(".stick"+i).classed("hoved", true);
+                        d3.select(".candle"+i).classed("hoved", true);
+                        d3.select(".volume"+i).classed("hoved", true);
+                        d3.select(".sigma"+i).classed("hoved", true);
+                        displayGen(i);
+                    })
+                    .on("mouseout", function(d, i) {
+                        d3.select(this).classed("hoved", false);
+                        d3.select(".stick"+i).classed("hoved", false);
+                        d3.select(".candle"+i).classed("hoved", false);
+                        d3.select(".volume"+i).classed("hoved", false);
+                        d3.select(".sigma"+i).classed("hoved", false);
+                        displayGen(genData.length-1);
+                    })
+                    .on("click", function(d, i) {
+                    console.log(getDate(i));
+                    });
+                  }
+
+          function getDate(mark) {
+          var stringTime = d3.time.format("%Y-%m-%d");
+          var timeString = stringTime(genData[mark].timestamp);
+          if (timeString == null) {
+                    var stock_org = document.getElementById('org').value;
+                    window.location = '/crypto/?chart_type=ohlc&org='+stock_org
+                    } else {
+                        window.location = '/crypto/?chart_type=ohlc&org='+'{{ org_stock }}'+'&news_from='+timeString+'&news_to='+timeString
+                    }
+          return timeString;
+          }
+
+          function displayGen(mark) {
+              var header      = csheader();
+              d3.select("#infobar").datum(genData.slice(mark)[0]).call(header);
+          }
+
+          var file_path = "daily_GOOGL.csv";
+
+          go(file_path);
+      </script>
+      {% endif %}            
+                               <div class="row">
+                  <div class="col-md-6">
+                    <div class="card card-tasks">
+                      <div class="card-header">
+                        <h5 class="card-category">News</h5>
+                         <h4 class="card-title">{{ org_stock}}
+                        <h5 class="card-category"> Date: <h4 class="card-title"> {{ date }} </h4>
+                      </div>
+                      <div class="card-body">
+                        <div class="table-full-width table-responsive">
+                          <table class="table">
+                            <tbody>
+                                {% for data in news %}
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox">
+                                                <span class="form-check-sign"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="text-left" onclick="window.location ='{{ data.url }}'"> {{ data.title }}</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
+                                            <i class="now-ui-icons ui-2_settings-90"></i>
+                                        </button>
+                                        <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                                            <i class="now-ui-icons ui-1_simple-remove"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}   
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <hr>
+                        <div class="stats">
+                          <i class="now-ui-icons loader_refresh spin"></i> Updated
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card card-tasks">
+                      <div class="card-header">
+                        <h5 class="card-category">Tweets</h5>
+                        <h4 class="card-title">{{ org_stock}}
+                        <h5 class="card-category"> Date: <h4 class="card-title"> {{ date }} </h4>
+                      </div>
+                      <div class="card-body">
+                        <div class="table-full-width table-responsive">
+                          <table class="table">
+                            <tbody>
+                                {% for data in tweet %}
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox">
+                                                <span class="form-check-sign"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="text-left" onclick="window.location ='{{ data.url }}'"> {{ data.text }}</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
+                                            <i class="now-ui-icons ui-2_settings-90"></i>
+                                        </button>
+                                        <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                                            <i class="now-ui-icons ui-1_simple-remove"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}   
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <hr>
+                        <div class="stats">
+                          <i class="now-ui-icons loader_refresh spin"></i> Updated
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                  </div>
+  <footer class="footer">
+    <div class="container-fluid">
+      <nav>
+        <ul>
+          <li>
+            <a href="https://localhost:8000/">
+                Github-Source
+            </a>
+          </li>
+          <li>
+            <a href="about">
+                About Us
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="copyright">
+          &copy;
+          <script>
+              document.write(new Date().getFullYear())
+          </script>, Designed and developed by
+          <a>StockStories Team</a>.
+      </div>
+    </div>
+  </footer>
+</div>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+  <script src="http://datamaps.github.io/scripts/0.4.4/datamaps.world.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <style type="text/css">
+
+  body{
+    background-color:#f9f9f9;
+  }
+
+  #cryptomap1{
+    background-color:#f9f9f9;
+    margin-left:20px;
+    margin-top:60px;
+    width:1800px;
+    height:800px;
+  }
+
+  .dot1 {
+  height: 25px;
+  width: 25px;
+  background-color: #f25f52;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left:600px;
+}
+
+.dot2 {
+height: 25px;
+width: 25px;
+background-color: #6bd385;
+border-radius: 50%;
+display: inline-block;
+margin-left:300px;
+}
+
+.dot1text{
+  position:relative;
+  bottom:5px;
+  font-size:1.2em;
+  font-family:'Times New Roman';
+  font-weight:bold;
+}
+
+  </style>
+
+  <body>
+
+    <div id ="cryptomap1">
+
+    </div>
+
+    <span class="dot1"></span> <span class="dot1text">Decrease in Value</span>
+<span class="dot2"></span> <span class="dot1text">Increase in Value</span>
+
+    <script>
+
+
+
+    var cryptoMap1 = new Datamap(
+
+          {
+              scope: 'world',
+              projection: 'equirectangular',
+              element: document.getElementById('cryptomap1'),
+              // projection: 'mercator',
+
+              geographyConfig: {
+                                  borderWidth: 0.2,
+                                  borderColor: 'white',
+                              /*  highlightBorderColor: 'black',
+                                  highlightBorderWidth: 0.5,
+                                  highlightFillColor: '#FFEC38',
+
+                                  highlightOnHover: true,
+                                  popupOnHover: true, //disable the popup while hovering
+      */
+                                  popupTemplate: function(geography, csvdata1) {
+                                      if ( !csvdata1 ) return;  // makes sure that the tooltip is shown only if there is data
+                                      return '<div class="hoverinfo">'  + 'Country: <strong>'+csvdata1.country +'</strong>'+ '<br>Currency: <strong>'+csvdata1.Currency + '</strong>'+ '<br> Value:  <strong>' +  csvdata1.Value + '</strong>';},
+                                  },
+              fills: {
+                'increase':'#6bd385',
+                'decrease':'#f25f52',
+                defaultFill: '#d6d6d6'
+              },
+              data: {}
+    });
+
+
+
+    d3.csv("{% static 'crypto_global.csv' %}", function(error, csvdata1) {
+
+    for (var i=0;i<csvdata1.length;i++)
+
+          {
+            csvdata1[i].fillKey = {};
+
+            if (csvdata1[i].Increase == "Yes")
+            {
+              csvdata1[i].fillKey = 'increase';
+            }
+
+            if (csvdata1[i].Increase == "No")
+            {
+              csvdata1[i].fillKey = 'decrease';
+            }
+
+
+            csvdata1[ csvdata1[i].country_code] = csvdata1[i] ;
+            //console.log(csvdata1[i]);
+            delete  csvdata1[i].country_code;
+
+            delete  csvdata1[i] ;
+              }
+
+
+    cryptoMap1.updateChoropleth(csvdata1);
+    }
+    );
+
+
+
+    </script>
+
+  </body>
+
+  </html>
